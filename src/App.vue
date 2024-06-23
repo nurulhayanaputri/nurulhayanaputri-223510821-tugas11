@@ -1,25 +1,20 @@
 <template>
+
+  
   <div>
     <nav>
       <ul>
-        <li @click="selectedMenu = 'todos'">Todos</li>
-        <li @click="selectedMenu = 'posts'">Posts</li>
+        <li @click="selectedMenu = 'todos'"><router-link to="/todos"><i class="fas fa-tasks"></i> Todos</router-link></li>
+        <li @click="selectedMenu = 'posts'"><router-link to="/users"><i class="fas fa-users"></i> Users</router-link></li>
+        <li @click="selectedMenu = 'album'"><router-link to="/albums"><i class="fas fa-photo-video"></i> Album</router-link></li>
       </ul>
     </nav>
-    <div>
-      <Todos v-if="selectedMenu === 'todos'"
-             :page-title="pageTitle"
-             :table-title="tableTitle"
-             :author="author"
-             :activities="activities"
-             @activity-added="handleActivityAdded"
-             @activity-deleted="handleActivityDeleted" />
-      <users v-if="selectedMenu === 'posts'" />
-    </div>
+    <router-view/>
   </div>
 </template>
 
 <script>
+import '@fortawesome/fontawesome-free/css/all.css';
 import Todos from './components/Todos.vue';
 import Users from './components/users.vue';
 
@@ -31,51 +26,13 @@ export default {
   data() {
     return {
       selectedMenu: 'Todos',
-      pageTitle: "Nurul Hayana Putri - 223510821",
-      tableTitle: "Tabel Kegiatan",
-      author: "Nurul Hayana Putri",
-      activities: [
-        { id: 1, name: 'Memasak', completed: false },
-        { id: 2, name: 'Shopping', completed: false },
-        { id: 3, name: 'Membaca Buku', completed: false },
-        { id: 4, name: 'Menari', completed: false }
-      ],
     };
-  },
-  methods: {
-    handleActivityAdded(newActivity) {
-      this.activities.push(newActivity);
-    },
-    handleActivityDeleted(activityId) {
-      const index = this.activities.findIndex(activity => activity.id === activityId);
-      if (index !== -1) {
-        this.activities.splice(index, 1);
-      }
-    },
-    handleUserSelected(selectedUserId) {
-      console.log('Selected user:', selectedUserId);
-
-    },
-    handlePostsFetched(posts) {
-      console.log('Fetched posts:', posts);
-
-    }
   }
 };
 </script>
 
-
-
 <style scoped>
-.background {
-  background-image: url(image/1.jpg);
-  color: white;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  min-height: 100vh;
-  padding: 20px;
-}
+
 nav {
   background-color: grey;
   padding: 15px;
@@ -92,5 +49,10 @@ li {
   display: inline-block;
   margin-right: 20px;
   cursor: pointer;
+}
+ul li a{
+  color: #fff;
+  text-decoration: none;
+
 }
 </style>
